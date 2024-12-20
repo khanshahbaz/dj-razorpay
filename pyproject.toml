@@ -1,6 +1,7 @@
 [tool.poetry]
-name = "djrazorpay"
+name = "dj-razorpay"
 version = "0.1.0"
+packages = [{ include = "djrazorpay" }]
 description = "Use Razorpay in Django easily"
 authors = ["Shahbaz Khan <shahbazkhan425@gmail.com>"]
 maintainers = ["Shahbaz Khan <shahbazkhan425@gmail.com>"]
@@ -27,7 +28,7 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.10"
-django = ">=5.0"
+django = ">=4.0"
 razorpay = "^1.4.2"
 
 

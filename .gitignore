@@ -4,3 +4,5 @@ __pycache__
 .vscode
 poetry.lock
 dist
+.DS_Store
+*.sqlite3
