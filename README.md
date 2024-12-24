@@ -1,4 +1,4 @@
-# djrazorpay
+# dj-razorpay
 
 djrazorpay is a Django app to enable easy integration of Razorpay payment and subscription.
 

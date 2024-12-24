@@ -1,9 +1,9 @@
 import os
 from typing import Any
-from datetime import datetime, timezone
 
 import razorpay
 from django.core.management.base import BaseCommand, CommandError, CommandParser
+
 from djrazorpay.models import Customer, Plan, PlanItem, Subscription
 
 
@@ -50,12 +50,8 @@ class Command(BaseCommand):
                     "tax_rate": item_data["tax_rate"],
                     "tax_id": item_data["tax_id"],
                     "tax_group_id": item_data["tax_group_id"],
-                    "created_at": datetime.fromtimestamp(
-                        item_data["created_at"], timezone.utc
-                    ),
-                    "updated_at": datetime.fromtimestamp(
-                        item_data["updated_at"], timezone.utc
-                    ),
+                    "created_at": item_data["created_at"],
+                    "updated_at": item_data["updated_at"],
                 },
             )
             Plan.objects.update_or_create(
@@ -64,9 +60,7 @@ class Command(BaseCommand):
                     "interval": plan_data["interval"],
                     "period": plan_data["period"],
                     "item": item,
-                    "created_at": datetime.fromtimestamp(
-                        plan_data["created_at"], timezone.utc
-                    ),
+                    "created_at": plan_data["created_at"],
                     # "notes": plan_data.get("notes", {}),
                 },
             )
@@ -82,9 +76,7 @@ class Command(BaseCommand):
                     "email": customer_data["email"],
                     "contact": customer_data["contact"],
                     "gstin": customer_data["gstin"],
-                    "created_at": datetime.fromtimestamp(
-                        customer_data["created_at"], timezone.utc
-                    ),
+                    "created_at": customer_data["created_at"],
                     # "notes": customer_data.get("notes", {}),
                 },
             )
@@ -104,73 +96,23 @@ class Command(BaseCommand):
                     "plan": plan,
                     "customer": customer,
                     "status": subscription_data["status"],
-                    "current_start": (
-                        datetime.fromtimestamp(
-                            subscription_data["current_start"], timezone.utc
-                        )
-                        if subscription_data["current_start"]
-                        else None
-                    ),
-                    "current_end": (
-                        datetime.fromtimestamp(
-                            subscription_data["current_end"], timezone.utc
-                        )
-                        if subscription_data["current_end"]
-                        else None
-                    ),
-                    "ended_at": (
-                        datetime.fromtimestamp(
-                            subscription_data["ended_at"], timezone.utc
-                        )
-                        if subscription_data["ended_at"]
-                        else None
-                    ),
+                    "current_start": subscription_data["current_start"],
+                    "current_end": subscription_data["current_end"],
+                    "ended_at": subscription_data["ended_at"],
                     "quantity": subscription_data["quantity"],
                     # "notes": subscription_data.get("notes", {}),
-                    "charge_at": (
-                        datetime.fromtimestamp(
-                            subscription_data["charge_at"], timezone.utc
-                        )
-                        if subscription_data["charge_at"]
-                        else None
-                    ),
-                    "start_at": (
-                        datetime.fromtimestamp(
-                            subscription_data["start_at"], timezone.utc
-                        )
-                        if subscription_data["start_at"]
-                        else None
-                    ),
-                    "end_at": (
-                        datetime.fromtimestamp(
-                            subscription_data["end_at"], timezone.utc
-                        )
-                        if subscription_data["end_at"]
-                        else None
-                    ),
+                    "charge_at": subscription_data["charge_at"],
+                    "start_at": subscription_data["start_at"],
+                    "end_at": subscription_data["end_at"],
                     "auth_attempts": subscription_data["auth_attempts"],
                     "total_count": subscription_data["total_count"],
                     "paid_count": subscription_data["paid_count"],
                     "customer_notify": subscription_data["customer_notify"],
-                    "created_at": datetime.fromtimestamp(
-                        subscription_data["created_at"], timezone.utc
-                    ),
-                    "expire_by": (
-                        datetime.fromtimestamp(
-                            subscription_data["expire_by"], timezone.utc
-                        )
-                        if subscription_data["expire_by"]
-                        else None
-                    ),
+                    "created_at": subscription_data["created_at"],
+                    "expire_by": subscription_data["expire_by"],
                     "short_url": subscription_data["short_url"],
                     "has_scheduled_changes": subscription_data["has_scheduled_changes"],
-                    "change_scheduled_at": (
-                        datetime.fromtimestamp(
-                            subscription_data["change_scheduled_at"], timezone.utc
-                        )
-                        if subscription_data["change_scheduled_at"]
-                        else None
-                    ),
+                    "change_scheduled_at": subscription_data["change_scheduled_at"],
                     "source": subscription_data["source"],
                     "offer_id": subscription_data["offer_id"],
                     "remaining_count": subscription_data["remaining_count"],
